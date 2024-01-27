@@ -1,0 +1,6 @@
+*.in
+*.out
+*.pyc
+env.py
+question
+solutions/
