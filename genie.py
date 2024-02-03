@@ -1,18 +1,15 @@
 import sys
 import os
+import time
+import datetime
 
 import openai
 
 from prompts.basic import BASIC_PROMPT
-from env import OPENAI_API_KEY
-
-SOLUTIONS_PATH = './solutions'
+from env import OPENAI_API_KEY, SOLUTIONS_PATH, MODEL
+from languages import LANG_MAP
 
 OPENAI_CLIENT = openai.OpenAI(api_key=OPENAI_API_KEY)
-
-LANG_MAP = {'python':'py','javascript':'js'}
-
-MODEL = 'gpt-4'
 
 def num_args():
     num_args = len(sys.argv)-1
@@ -42,7 +39,14 @@ def main():
     except:
         print(f'Solutions directory already exists as {SOLUTIONS_PATH}')
 
-    if num_args() == 2:
+    if num_args() == 1:
+        command = get_arg(1)
+        if command == "languages":
+            print("The supported languages are: ")
+            for lang in LANG_MAP.keys():
+                print (lang)
+
+    elif num_args() == 2:
         q_file = get_arg(1)
 
         lang = get_arg(2)
@@ -54,7 +58,7 @@ def main():
 
         script = generate_response(build_prompt(q, lang))
 
-        with open(os.path.join(SOLUTIONS_PATH,f'script_file.{LANG_MAP[lang]}'),'w') as f:
+        with open(os.path.join(SOLUTIONS_PATH,f'solution.{LANG_MAP[lang]}'),'w') as f:
             f.write(script)
 
         
