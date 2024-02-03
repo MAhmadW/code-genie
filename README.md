@@ -35,13 +35,6 @@ The following languages are supported:
 - Julia
 - Clojure
 - F#
-- SQL
-- HTML
-- CSS
-- XML
-- JSON
-- YAML
-- Markdown
 
 ## Usage
 
